@@ -1,0 +1,43 @@
+* {
+  font-family: "Yeseva One", serif;
+}
+
+.h-screen {
+  height: 100vh;
+}
+.bg-primary {
+  background-color: #303030 !important;
+}
+.bg-white {
+  background-color: #fff;
+}
+.w-350 {
+  width: 350px;
+}
+input {
+  border: 3px solid grey;
+  height: 40px;
+  width: 100%;
+  padding-left: 20px;
+}
+input:focus {
+  outline: none;
+  border: 2px solid rgb(211, 142, 142);
+}
+.primary-contained-btn {
+  background-color: #303030;
+  border-radius: 0;
+  height: 35px;
+  color: wheat;
+  text-transform: uppercase;
+}
+.ant-form-item {
+  margin-bottom: 10px;
+}
+a {
+  color: #303030 !important;
+  text-decoration: none;
+}
+hr {
+  width: 45%;
+}
