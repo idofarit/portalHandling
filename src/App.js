@@ -1,42 +1,50 @@
 import React from "react";
 import "./stylesheets/customComponent.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./stylesheets/layout.css";
 import HomeLayout from "./pages/HomeLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <ProtectedRoute>
-        <HomeLayout />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/login",
-    element: (
-      <PublicRoute>
-        <Login />,
-      </PublicRoute>
-    ),
-  },
-  {
-    path: "/register",
-    element: (
-      <PublicRoute>
-        <Register />,
-      </PublicRoute>
-    ),
-  },
-]);
+import { useSelector } from "react-redux";
+import Loader from "./components/Loader";
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  const { loading } = useSelector((state) => state.alert);
+  return (
+    <div>
+      {loading && <Loader />}
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <HomeLayout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 };
 
 export default App;
