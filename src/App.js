@@ -9,6 +9,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import { useSelector } from "react-redux";
 import Loader from "./components/Loader";
+import AppliedJobs from "./pages/user/AppliedJobs";
+import Profile from "./pages/user/Profile/Index";
+import PostedJobs from "./pages/user/PostedJobs/Index";
+import NewEditJobs from "./pages/user/PostedJobs/NewEditJobs";
 
 const App = () => {
   const { loading } = useSelector((state) => state.alert);
@@ -22,6 +26,46 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <HomeLayout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/appliedJobs"
+            element={
+              <ProtectedRoute>
+                <AppliedJobs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/postedJobs"
+            element={
+              <ProtectedRoute>
+                <PostedJobs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/postedJobs/new"
+            element={
+              <ProtectedRoute>
+                <NewEditJobs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/postedJobs/new/:id"
+            element={
+              <ProtectedRoute>
+                <NewEditJobs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />
