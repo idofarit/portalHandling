@@ -1,10 +1,11 @@
 import { Form, message } from "antd";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import { LoginUser } from "./apis/Auth";
+
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { HideLoading, Showloading } from "../redux/AlertSlice";
+import { LoginUser } from "../apis/Auth";
 
 export const loader = async () => {
   const response = await JSON.parse(localStorage.getItem("user"));
@@ -27,6 +28,7 @@ const Login = () => {
       }
     } catch (error) {
       dispatch(HideLoading());
+      console.log(error);
       message.error(error.message);
     }
   };

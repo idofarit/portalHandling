@@ -22,7 +22,7 @@ select {
   border: 1px solid grey;
   height: 40px;
   width: 100%;
-  padding-left: 10px;
+  padding: 5px 20px;
 }
 input:focus {
   outline: none;
@@ -61,5 +61,5 @@ a {
   text-decoration: none;
 }
 hr {
-  margin: 8px 0;
+  margin: 2px 0;
 }

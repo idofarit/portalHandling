@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from "react";
-import PageTitle from "../../../components/PageTitle";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { HideLoading, Showloading } from "../../../redux/AlertSlice";
-
-import { Button, Table, message } from "antd";
+import { Table, message } from "antd";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import AppliedCandidates from "./AppliedCandidates";
+import { HideLoading, Showloading } from "../../redux/AlertSlice";
+import PageTitle from "../../components/PageTitle";
 import {
+  changeJobStatusFromAdmin,
   deleteJobById,
-  getApplicationByJobId,
-  getPostedJobByUserId,
-} from "../../../apis/Jobs";
+  editJobDetails,
+  getallJobs,
+} from "../../apis/Jobs";
 
-const PostedJobs = () => {
+const AllJobs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-  const [showAppliedCandidates, setShowAppliedCandidates] = useState(false);
-  const [appliedCandidates, setAppliedCandidates] = useState([]);
 
   const getData = async () => {
     try {
       dispatch(Showloading());
-      const user = JSON.parse(localStorage.getItem("user"));
-      const response = await getPostedJobByUserId(user.id);
+      const response = await getallJobs();
       if (response.success) {
         setData(response.data);
+        getData();
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -51,13 +48,16 @@ const PostedJobs = () => {
     }
   };
 
-  const getAppliedCandidates = async (id) => {
+  const changeStatus = async (jobData, status) => {
     try {
       dispatch(Showloading());
-      const response = await getApplicationByJobId(id);
+      const response = await changeJobStatusFromAdmin({
+        ...jobData,
+        status,
+      });
       if (response.success) {
-        setAppliedCandidates(response.data);
-        setShowAppliedCandidates(true);
+        setData(response.data);
+        getData();
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -98,17 +98,23 @@ const PostedJobs = () => {
       key: "action",
       render: (text, record) => (
         <div className="d-flex gap-3 align-items-center">
-          <Button
-            type="primary"
-            onClick={() => getAppliedCandidates(record.id)}
-          >
-            Candidates
-          </Button>
           <AiFillDelete cursor="pointer" onClick={() => deleteJob(record.id)} />
-          <AiFillEdit
-            cursor="pointer"
-            onClick={() => navigate(`/postedJobs/edit/${record.id}`)}
-          />
+          {record.status === "approved" && (
+            <span
+              className="underline"
+              onClick={() => changeStatus(record, "rejected")}
+            >
+              Reject
+            </span>
+          )}
+          {(record.status === "pending" || record.status === "rejected") && (
+            <span
+              className="underline"
+              onClick={() => changeStatus(record, "approved")}
+            >
+              Approve
+            </span>
+          )}
         </div>
       ),
     },
@@ -121,9 +127,9 @@ const PostedJobs = () => {
   return (
     <>
       <div className="d-flex justify-content-between">
-        <PageTitle title="Posted Jobs" />
+        <PageTitle title="All Jobs" />
         <button
-          onClick={() => navigate("/postedJobs/new")}
+          onClick={() => navigate("/AllJobs/new")}
           className="primary-outlined-btn"
         >
           NEW JOB
@@ -131,17 +137,8 @@ const PostedJobs = () => {
       </div>
 
       <Table columns={columns} dataSource={data} />
-
-      {showAppliedCandidates && (
-        <AppliedCandidates
-          showAppliedCandidates={showAppliedCandidates}
-          setShowAppliedCandidates={setShowAppliedCandidates}
-          appliedCandidates={appliedCandidates}
-          reloadData={getAppliedCandidates}
-        />
-      )}
     </>
   );
 };
 
-export default PostedJobs;
+export default AllJobs;

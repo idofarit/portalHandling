@@ -16,3 +16,41 @@
 .page-title h2 {
   font-size: 18px;
 }
+.underline {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.job-card {
+  border: 1px solid rgba(33, 33, 31, 0.76);
+  padding: 10px;
+  border-radius: 0px;
+}
+.job-card h5 {
+  text-transform: capitalize;
+  font-size: 15px;
+}
+.divider {
+  background-color: black;
+  height: 1px;
+}
+.modalSpan {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.notify {
+  color: white;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.already-applied {
+  background-color: rgb(38, 130, 38);
+  color: white;
+  padding: 8px;
+  font-size: 16px;
+  margin-top: 20px;
+}
+.already-applied p {
+  margin: auto;
+  letter-spacing: 2px;
+}

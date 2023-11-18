@@ -1,6 +1,7 @@
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { fireDB } from "../../firebaseConfig";
+
 import CryptoJS from "crypto-js";
+import { fireDB } from "../firebaseConfig";
 
 export const LoginUser = async (payload) => {
   // check if user exixts -- start

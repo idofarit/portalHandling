@@ -13,6 +13,10 @@ import AppliedJobs from "./pages/user/AppliedJobs";
 import Profile from "./pages/user/Profile/Index";
 import PostedJobs from "./pages/user/PostedJobs/Index";
 import NewEditJobs from "./pages/user/PostedJobs/NewEditJobs";
+import AllJobs from "./pages/admin/AllJobs";
+import AllUser from "./pages/admin/AllUser";
+import JobDescription from "./pages/JobDescription";
+import NotificationPage from "./pages/NotificationPage";
 
 const App = () => {
   const { loading } = useSelector((state) => state.alert);
@@ -26,6 +30,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <HomeLayout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/jobDescription/:id"
+            element={
+              <ProtectedRoute>
+                <JobDescription />
               </ProtectedRoute>
             }
           />
@@ -54,18 +66,10 @@ const App = () => {
             }
           />
           <Route
-            path="/postedJobs/new/:id"
+            path="/postedJobs/edit/:id"
             element={
               <ProtectedRoute>
                 <NewEditJobs />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
               </ProtectedRoute>
             }
           />
@@ -83,6 +87,41 @@ const App = () => {
               <PublicRoute>
                 <Register />
               </PublicRoute>
+            }
+          />
+          <Route
+            path="/profile/:id"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <ProtectedRoute>
+                <NotificationPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* admin routes */}
+
+          <Route
+            path="/admin/jobs"
+            element={
+              <ProtectedRoute>
+                <AllJobs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute>
+                <AllUser />
+              </ProtectedRoute>
             }
           />
         </Routes>

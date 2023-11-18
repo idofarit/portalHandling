@@ -1,9 +1,10 @@
 import React from "react";
 import { Form, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { RegisterUser } from "./apis/Auth";
+
 import { useDispatch } from "react-redux";
 import { HideLoading, Showloading } from "../redux/AlertSlice";
+import { RegisterUser } from "../apis/Auth";
 
 const Register = () => {
   const dispatch = useDispatch();

@@ -6,13 +6,16 @@ import Education from "./Education";
 import Experience from "./Experience";
 import { useDispatch } from "react-redux";
 import { HideLoading, Showloading } from "../../../redux/AlertSlice";
-import { getUserProfile, updateUserProfile } from "../../apis/User";
-
-const { TabPane } = Tabs;
+import TabPane from "antd/es/tabs/TabPane";
+import { useNavigate, useParams } from "react-router-dom";
+import { getUserProfile, updateUserProfile } from "../../../apis/User";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [userData, setuserData] = useState(null);
+  const params = useParams();
   const dispatch = useDispatch();
+  const loggedInUser = JSON.parse(localStorage.getItem("user"));
   const onFinish = async (values) => {
     try {
       dispatch(Showloading());
@@ -30,7 +33,7 @@ const Profile = () => {
     try {
       dispatch(Showloading());
       const user = JSON.parse(localStorage.getItem("user"));
-      const response = await getUserProfile(user.id);
+      const response = await getUserProfile(params.id);
       dispatch(HideLoading());
       if (response.success) {
         console.log(response.data);
@@ -47,27 +50,46 @@ const Profile = () => {
     getData();
   }, []);
 
+  const onChange = (key) => {
+    console.log(key);
+  };
+
+  const items = [
+    {
+      key: "1",
+      label: "Personal Info",
+      children: <PersonalInfo />,
+    },
+    {
+      key: "2",
+      label: "Education",
+      children: <Education />,
+    },
+    {
+      key: "3",
+      label: "Experience",
+      children: <Experience />,
+    },
+  ];
   return (
     <div>
       <PageTitle title="Profile" />
       {userData && (
         <Form layout="vertical" onFinish={onFinish} initialValues={userData}>
-          <Tabs defaultActiveKey="1">
-            <TabPane tab="Personal Info" key="1">
-              <PersonalInfo />
-            </TabPane>
-            <TabPane tab="Education" key="2">
-              <Education />
-            </TabPane>
-            <TabPane tab="Experience" key="3">
-              <Experience />
-            </TabPane>
-          </Tabs>
-          <div className="d-flex justify-content-end">
-            <button className="primary-outlined-btn">Cancel</button>
-            <button type="submit" className="primary-contained-btn">
-              Save
+          <Tabs defaultActiveKey="1" items={items} onChange={onchange} />
+          <div className="d-flex justify-content-end gap-2">
+            <button
+              onClick={() => navigate("/")}
+              className="primary-outlined-btn"
+            >
+              Cancel
             </button>
+
+            {params.id === loggedInUser.id && (
+              <button type="submit" className="primary-contained-btn">
+                Save
+              </button>
+            )}
           </div>
         </Form>
       )}

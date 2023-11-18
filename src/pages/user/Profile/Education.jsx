@@ -11,8 +11,8 @@ const Education = () => {
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
-              <Row align="middle" key={key} gutter={[10, 10]}>
-                <Col span={8}>
+              <Row align="middle" key={key} gutter={16}>
+                <Col xs={24} sm={12} xl={8}>
                   <Form.Item
                     {...restField}
                     name={[name, "degree"]}
@@ -27,7 +27,7 @@ const Education = () => {
                     <input type="text" />
                   </Form.Item>
                 </Col>
-                <Col span={8}>
+                <Col xs={24} sm={12} xl={8}>
                   <Form.Item
                     {...restField}
                     name={[name, "institution"]}
@@ -42,7 +42,7 @@ const Education = () => {
                     <input type="text" />
                   </Form.Item>
                 </Col>
-                <Col span={4}>
+                <Col xs={24} sm={12} xl={8}>
                   <Form.Item
                     {...restField}
                     name={[name, "percentage"]}
@@ -83,8 +83,8 @@ const Education = () => {
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
-              <Row align="middle" key={key} gutter={[10, 10]}>
-                <Col span={8}>
+              <Row align="middle" key={key} gutter={16}>
+                <Col xs={24} sm={12} xl={8}>
                   <Form.Item
                     {...restField}
                     name={[name, "technology"]}
@@ -99,7 +99,7 @@ const Education = () => {
                     <input type="text" />
                   </Form.Item>
                 </Col>
-                <Col span={8}>
+                <Col xs={24} sm={12} xl={8}>
                   <Form.Item
                     {...restField}
                     name={[name, "rating"]}
